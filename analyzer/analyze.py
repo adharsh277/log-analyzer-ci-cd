@@ -23,7 +23,7 @@ def parse_logs():
             if match:
                 entry = match.groupdict()
                 # Convert time string to datetime object
-                entry["time"] = datetime.strptime(entry["time"], "%d/%b/%Y:%H:%M:%S %z")
+                eentry["time"] = datetime.strptime(entry["time"], "%a %b %d %H:%M:%S %Z %Y")
                 entry["status"] = int(entry["status"])
                 entry["size"] = int(entry["size"])
                 data.append(entry)
