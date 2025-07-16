@@ -4,12 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'logs/**'
-      - 'analyzer/**'
-      - 'Dockerfile'
-      - 'requirements.txt'
-      - '.github/workflows/analyze.yml'
 
 jobs:
   analyze:
@@ -30,7 +24,7 @@ jobs:
     - name: 📊 Run Log Analyzer
       run: python analyzer/analyze.py
 
-    - name: 📁 Upload Reports as Artifacts
+    - name: 📁 Upload Reports
       uses: actions/upload-artifact@v4
       with:
         name: log-reports
