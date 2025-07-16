@@ -2,32 +2,35 @@ name: Run Log Analyzer
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'logs/**'
       - 'analyzer/**'
       - 'Dockerfile'
       - 'requirements.txt'
+      - '.github/workflows/analyze.yml'
 
 jobs:
   analyze:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: 📦 Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up Python
+    - name: 🐍 Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.12'
 
-    - name: Install dependencies
+    - name: 📥 Install dependencies
       run: pip install -r requirements.txt
 
-    - name: Run Log Analyzer
+    - name: 📊 Run Log Analyzer
       run: python analyzer/analyze.py
 
-    - name: Upload Reports as Artifacts
+    - name: 📁 Upload Reports as Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: log-reports
