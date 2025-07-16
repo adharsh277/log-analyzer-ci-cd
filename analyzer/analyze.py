@@ -23,14 +23,15 @@ def parse_logs():
             if match:
                 entry = match.groupdict()
                 try:
-                    # Match timestamp: Wed Jul 16 12:17:19 UTC 2025
-                    entry["time"] = datetime.strptime(entry["time"], "%a %b %d %H:%M:%S %Z %Y")
-                except ValueError as ve:
+                    # Parse the datetime correctly
+                    timestamp = datetime.strptime(entry["time"], "%a %b %d %H:%M:%S %Z %Y")
+                    entry["time"] = timestamp
+                    entry["status"] = int(entry["status"])
+                    entry["size"] = int(entry["size"])
+                    data.append(entry)
+                except ValueError:
                     print(f"⚠️ Skipping line with invalid time format: {entry['time']}")
                     continue
-                entry["status"] = int(entry["status"])
-                entry["size"] = int(entry["size"])
-                data.append(entry)
     return pd.DataFrame(data)
 
 def generate_report(df):
